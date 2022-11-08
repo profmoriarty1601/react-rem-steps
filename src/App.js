@@ -1,30 +1,21 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import User from './User';
 
 function App() {
 
-  const [count, setCount] = useState(1);
-  function updateCounter() {
-    let random_val = Math.floor(Math.random() * 10);
-    setCount((prev) => {
-      console.warn("Previous Val : " + prev);
-      if (prev < 2) {
-        alert("LOW Value !!!");        
-      }
-
-      return random_val;
-    })
-  }
+  const [count, setCount] = useState(0);  
 
   return (
     <div className="App">
       <h1>React World !!!</h1>
-      <h2>Previous Statte</h2>
+      <h2>Previous Props with Hooks</h2>
       <br />
-      <h3>{count}</h3>
+      <User count={count} />
+      {/* <h3>Count : {count}</h3> */}
       <br />
-      <Button onClick={updateCounter}>Update Counter !</Button>
+      <Button onClick={()=>setCount(Math.ceil(Math.random()*10))}> Update Counter </Button>
     </div>
   );
 }

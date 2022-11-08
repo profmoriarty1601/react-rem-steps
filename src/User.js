@@ -1,12 +1,23 @@
-import { withRouter } from 'react-router-dom'
-function User(props) {
-    console.warn(props)
-    return (
-        <div><h1>User No {props.match.params.id}</h1>
-            <h1>User Name {props.match.params.name}</h1>
-        </div>
+import { React, useEffect, useRef } from 'react';
 
+function User(props) {
+
+    const lastVal = useRef();
+
+    useEffect(() => {
+        lastVal.current = props.count;
+    })
+
+    const prevProps = lastVal.current
+
+    return (
+        <div>
+            <h3>User Component</h3>
+            <br />
+            <h4>Current Val : {props.count}</h4>
+            <h5>Previous Val : {prevProps}</h5>
+        </div>
     )
 }
 
-export default withRouter(User);
+export default User;
