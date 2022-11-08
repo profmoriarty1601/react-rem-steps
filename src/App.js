@@ -1,60 +1,32 @@
 import './App.css';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 function App() {
 
-  const URL = "http://localhost:53688/api/Admin";
-  const [users, setUser] = useState([])
+  const [count, setCount] = useState(1);
+  function updateCounter() {
+    let random_val = Math.floor(Math.random() * 10);
+    setCount((prev) => {
+      console.warn("Previous Val : " + prev);
+      if (prev < 2) {
+        alert("LOW Value !!!");        
+      }
 
-  useEffect(() => {
-    getList()
-  },[])
-  console.warn(users)
-
-  function getList() {
-    fetch(URL).then((result) => {
-      result.json().then((resp) => {
-        // console.warn(resp)
-        setUser(resp)
-      })
-    })
-  }
-
-  function deleteUser(adminId) {
-    fetch(URL + `/${adminId}`, {
-      method: 'DELETE',
-    }).then.json().then((resp) => {
-      console.warn(resp);
-      getList();
+      return random_val;
     })
   }
 
   return (
     <div className="App">
       <h1>React World !!!</h1>
-      <h2>Get API Method</h2>
+      <h2>Previous Statte</h2>
       <br />
-      <table border="5px">
-        <tbody>
-          <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Pass</th>
-            <th>Operation</th>
-          </tr>
-          {
-            users.map((item, i) =>
-              <tr key={i}>
-                <td>{item.adminId}</td>
-                <td>{item.adminUsername}</td>
-                <td>{item.adminPass}</td>
-                <td><button onClick={() => deleteUser(item.adminId)}>Delete</button></td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <h3>{count}</h3>
+      <br />
+      <Button onClick={updateCounter}>Update Counter !</Button>
     </div>
   );
 }
+
 export default App;
